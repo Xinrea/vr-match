@@ -7,6 +7,9 @@
     {
       "id": "nanami",
       "name": "七海",
+      "visual": "/members/qi_hai.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 2,
       "bilibiliUid": "434334701",
       "archetype": "高频陪伴型游戏伙伴",
@@ -19,6 +22,9 @@
     {
       "id": "aza",
       "name": "阿萨Aza",
+      "visual": "/members/aza.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 6,
       "bilibiliUid": "480680646",
       "archetype": "冷感精确的音乐同好",
@@ -31,6 +37,9 @@
     {
       "id": "kouichi",
       "name": "中单光一",
+      "visual": "/members/guangyi.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 2,
       "bilibiliUid": "434401868",
       "archetype": "深度竞技与互联网观察者",
@@ -43,6 +52,9 @@
     {
       "id": "momose_yukie",
       "name": "桃濑雪绘",
+      "visual": "/members/taolai.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 7,
       "bilibiliUid": "56748733",
       "archetype": "爽朗的通宵游戏搭子",
@@ -55,6 +67,9 @@
     {
       "id": "sui",
       "name": "岁己Sui",
+      "visual": "/members/sui.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 17,
       "bilibiliUid": "1954091502",
       "archetype": "爱唱又爱闹的自由小鸟",
@@ -67,6 +82,9 @@
     {
       "id": "shiori",
       "name": "栞栞Shiori",
+      "visual": "/members/shiori.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 18,
       "bilibiliUid": "1609526545",
       "archetype": "吃饭聊天型海獭朋友",
@@ -79,6 +97,9 @@
     {
       "id": "michiya",
       "name": "未知夜Michiya",
+      "visual": "/members/michiya.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 19,
       "bilibiliUid": "1296515170",
       "archetype": "暗色世界观陪伴者",
@@ -91,6 +112,9 @@
     {
       "id": "yuki",
       "name": "雨纪",
+      "visual": "/members/yuki.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 19,
       "bilibiliUid": "1932862336",
       "archetype": "社交达人式游戏搭子",
@@ -103,6 +127,9 @@
     {
       "id": "ayumi",
       "name": "入福步",
+      "visual": "/members/fuku.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 20,
       "bilibiliUid": "1297910179",
       "archetype": "随时出现的热情朋友",
@@ -115,6 +142,9 @@
     {
       "id": "mizuki",
       "name": "弥月Mizuki",
+      "visual": "/members/mizuki.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 20,
       "bilibiliUid": "1789460279",
       "archetype": "宅系未来博士",
@@ -127,6 +157,9 @@
     {
       "id": "nagisa",
       "name": "米汀Nagisa",
+      "visual": "/members/nagisa.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 21,
       "bilibiliUid": "2124647716",
       "archetype": "安静观察型推理同好",
@@ -139,6 +172,9 @@
     {
       "id": "yukisyo",
       "name": "雪烛Yukisyo",
+      "visual": "/members/yukisyo.png",
+      "visualType": "tachie",
+      "visualSource": "VirtuaReal 官网成员页",
       "generation": 21,
       "bilibiliUid": "2039332008",
       "archetype": "宅家占卜游戏伙伴",
@@ -151,6 +187,9 @@
     {
       "id": "harei",
       "name": "花礼Harei",
+      "visual": "/members/harei.jpg",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 23,
       "bilibiliUid": "1048135385",
       "archetype": "高节目效果除灵部长",
@@ -163,6 +202,9 @@
     {
       "id": "zeyin",
       "name": "泽音",
+      "visual": "/members/zeyin.webp",
+      "visualType": "announcement",
+      "visualSource": "官方 B 站出道公告",
       "generation": 24,
       "archetype": "坚韧温暖的歌者",
       "style": { "energy": 3, "warmth": 5, "chaos": 2, "structure": 4, "intimacy": 4, "roleplay": 4, "focus": 4, "novelty": 3 },
@@ -174,6 +216,9 @@
     {
       "id": "nimue",
       "name": "妮慕Nimue",
+      "visual": "/members/nimue.webp",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 25,
       "bilibiliUid": "1085959883",
       "archetype": "对一切都好奇的童话旅伴",
@@ -186,6 +231,9 @@
     {
       "id": "meme",
       "name": "沐毛Meme",
+      "visual": "/members/meme.webp",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 25,
       "bilibiliUid": "1848752274",
       "archetype": "山海经系搞笑神兽",
@@ -198,6 +246,9 @@
     {
       "id": "mei",
       "name": "命依Mei",
+      "visual": "/members/mei.webp",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 25,
       "bilibiliUid": "1985811151",
       "archetype": "温柔悠哉的二次元死神",
@@ -210,6 +261,9 @@
     {
       "id": "mit3uri",
       "name": "三理Mit3uri",
+      "visual": "/members/mit3uri.jpg",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 25,
       "bilibiliUid": "2030198123",
       "archetype": "咖啡与事故并存的研究员",
@@ -222,6 +276,9 @@
     {
       "id": "liko",
       "name": "莉蔻Liko",
+      "visual": "/members/liko.jpg",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 27,
       "bilibiliUid": "1536601294",
       "archetype": "长时陪伴型游戏小兔",
@@ -234,6 +291,9 @@
     {
       "id": "izayoi",
       "name": "十六萤Izayoi",
+      "visual": "/members/izayoi.webp",
+      "visualType": "avatar",
+      "visualSource": "官方 B 站个人主页",
       "generation": 27,
       "bilibiliUid": "1149064559",
       "archetype": "清冷克制的任务型同伴",
