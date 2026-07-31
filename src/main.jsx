@@ -46,7 +46,11 @@ function App() {
   const question = questions[index];
   const profile = useMemo(() => buildUserProfile(questions, answers), [answers]);
   const result = useMemo(() => screen === "result" ? getResult(profile, members) : null, [screen, profile]);
-  const answer = (optionId) => setAnswers((current) => ({ ...current, [question.id]: optionId }));
+  const answer = (optionId) => {
+    setAnswers((current) => ({ ...current, [question.id]: optionId }));
+    if (index === questions.length - 1) setScreen("result");
+    else setIndex((value) => value + 1);
+  };
   const restart = () => { setAnswers({}); setIndex(0); setScreen("quiz"); };
   const next = () => { if (!answers[question.id]) return; index === questions.length - 1 ? setScreen("result") : setIndex((value) => value + 1); };
   useEffect(() => {
