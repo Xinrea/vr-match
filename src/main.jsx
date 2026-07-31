@@ -2,11 +2,12 @@ import { StrictMode, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import questionsData from "../data/quiz-questions.json";
 import membersData from "../data/virtuareal-member-vectors.json";
+import additionalMembersData from "../data/additional-active-members.json";
 import { buildUserProfile, getResult } from "./match-engine.mjs";
 import "../styles.css";
 
 const { questions } = questionsData;
-const { members } = membersData;
+const members = [...membersData.members, ...additionalMembersData.members];
 const RADAR_DIMENSIONS = [["energy", "能量"], ["warmth", "温度"], ["chaos", "节目"], ["structure", "结构"], ["intimacy", "互动"], ["roleplay", "设定"], ["focus", "专注"], ["novelty", "探索"]];
 
 function MemberMark({ member, mini = false }) {
