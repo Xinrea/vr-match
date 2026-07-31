@@ -1,0 +1,18 @@
+{
+  "version": "0.1.0",
+  "updatedAt": "2026-07-31",
+  "scope": "VirtuaReal Project active members",
+  "styleDimensions": {
+    "energy": { "min": 1, "max": 5, "low": "安静低刺激", "high": "热闹高刺激" },
+    "warmth": { "min": 1, "max": 5, "low": "冷感克制", "high": "温柔治愈" },
+    "chaos": { "min": 1, "max": 5, "low": "稳定沉着", "high": "梗密度高、意外感强" },
+    "structure": { "min": 1, "max": 5, "low": "随性自然", "high": "主题与目标清晰" },
+    "intimacy": { "min": 1, "max": 5, "low": "舞台式欣赏", "high": "朋友式陪伴" },
+    "roleplay": { "min": 1, "max": 5, "low": "日常真实感", "high": "世界观沉浸感" },
+    "focus": { "min": 1, "max": 5, "low": "多样切换", "high": "长时间深入一个主题" },
+    "novelty": { "min": 1, "max": 5, "low": "熟悉舒适区", "high": "持续探索新内容" }
+  },
+  "contentDimensions": ["music", "gaming", "chat", "variety", "knowledge"],
+  "evidenceTypes": ["official", "self_profile", "recent_content", "community_wiki", "editorial_inference"],
+  "confidenceLevels": ["high", "medium", "low"]
+}
