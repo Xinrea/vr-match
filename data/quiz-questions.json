@@ -1,0 +1,117 @@
+{
+  "version": "0.1.0",
+  "instructions": "每题选一个最接近的答案。题目衡量的是观看偏好，不衡量性格。",
+  "questions": [
+    {
+      "id": "energy_after_work",
+      "dimension": "energy",
+      "prompt": "结束忙碌的一天后，你打开直播最想进入怎样的氛围？",
+      "options": [
+        { "id": "soft", "label": "安静听一会儿，慢慢放空", "effects": { "styles": { "energy": 1, "warmth": 4, "intimacy": 4 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "balanced", "label": "有聊天也有小节目，轻松就好", "effects": { "styles": { "energy": 3, "warmth": 3, "intimacy": 3 }, "contentDeltas": { "chat": 1, "variety": 1 } } },
+        { "id": "lively", "label": "越热闹越好，最好一进来就有梗", "effects": { "styles": { "energy": 5, "chaos": 4, "intimacy": 4 }, "contentDeltas": { "variety": 2, "chat": 1 } } }
+      ]
+    },
+    {
+      "id": "host_relationship",
+      "dimension": "warmth_and_intimacy",
+      "prompt": "你更期待主播和观众之间是什么关系？",
+      "options": [
+        { "id": "stage", "label": "有距离感也没关系，我更想欣赏作品和表演", "effects": { "styles": { "warmth": 2, "intimacy": 1, "structure": 4 }, "contentDeltas": { "music": 1 } } },
+        { "id": "same_interest", "label": "像兴趣相投的网友，聊天自然就好", "effects": { "styles": { "warmth": 3, "intimacy": 3, "chaos": 3 }, "contentDeltas": { "chat": 2 } } },
+        { "id": "companion", "label": "像熟悉的朋友，想被记住也想参与其中", "effects": { "styles": { "warmth": 5, "intimacy": 5, "energy": 4 }, "contentDeltas": { "chat": 3, "variety": 1 } } }
+      ]
+    },
+    {
+      "id": "surprise_tolerance",
+      "dimension": "chaos_and_structure",
+      "prompt": "如果直播突然偏离原计划，你会觉得？",
+      "options": [
+        { "id": "keep_plan", "label": "还是按原计划来吧，有明确目标最安心", "effects": { "styles": { "chaos": 1, "structure": 5, "focus": 4 }, "contentDeltas": {} } },
+        { "id": "small_detour", "label": "偶尔跑题很好，但别完全失控", "effects": { "styles": { "chaos": 3, "structure": 3, "focus": 3 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "let_it_happen", "label": "越意外越有趣，节目效果就是这样来的", "effects": { "styles": { "chaos": 5, "structure": 1, "novelty": 4 }, "contentDeltas": { "variety": 3 } } }
+      ]
+    },
+    {
+      "id": "setting_preference",
+      "dimension": "roleplay",
+      "prompt": "你在意 VTuber 的角色设定和世界观吗？",
+      "options": [
+        { "id": "daily", "label": "不太在意，真实日常和自然交流更重要", "effects": { "styles": { "roleplay": 1, "intimacy": 4 }, "contentDeltas": { "chat": 2 } } },
+        { "id": "seasoning", "label": "有时玩玩设定会加分，但不用一直维持", "effects": { "styles": { "roleplay": 3, "novelty": 3 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "immersive", "label": "很在意，喜欢角色与世界观能持续展开", "effects": { "styles": { "roleplay": 5, "focus": 4, "novelty": 4 }, "contentDeltas": { "knowledge": 1, "variety": 1 } } }
+      ]
+    },
+    {
+      "id": "watching_rhythm",
+      "dimension": "focus_and_novelty",
+      "prompt": "一场三小时的直播，什么节奏最对你的胃口？",
+      "options": [
+        { "id": "deep_dive", "label": "围绕一个游戏、主题或目标一路深入", "effects": { "styles": { "focus": 5, "novelty": 2, "structure": 4 }, "contentDeltas": { "gaming": 2, "knowledge": 2 } } },
+        { "id": "mixed", "label": "主线明确，中间穿插聊天和小变化", "effects": { "styles": { "focus": 3, "novelty": 3, "structure": 3 }, "contentDeltas": { "chat": 1, "variety": 1 } } },
+        { "id": "adventure", "label": "不断尝试新东西，想到哪聊到哪也行", "effects": { "styles": { "focus": 1, "novelty": 5, "chaos": 4 }, "contentDeltas": { "variety": 2, "chat": 1 } } }
+      ]
+    },
+    {
+      "id": "music",
+      "dimension": "content_music",
+      "prompt": "什么情况下你最愿意点进一场歌回或音乐内容？",
+      "options": [
+        { "id": "rarely", "label": "除非是特别喜欢的歌手，否则不太会", "effects": { "styles": {}, "contentDeltas": { "music": -2 }, "contentOverrides": { "music": 0 } } },
+        { "id": "sometimes", "label": "气氛合适会听，能当作放松背景", "effects": { "styles": { "energy": 2 }, "contentDeltas": { "music": 1 } } },
+        { "id": "core", "label": "歌声和舞台表现本身就是我追看的理由", "effects": { "styles": { "structure": 4, "intimacy": 2 }, "contentDeltas": { "music": 3 } } }
+      ]
+    },
+    {
+      "id": "gaming",
+      "dimension": "content_gaming",
+      "prompt": "对于游戏直播，你最想看的是？",
+      "options": [
+        { "id": "not_for_me", "label": "游戏不是重点，偶尔看看就够了", "effects": { "styles": {}, "contentDeltas": { "gaming": -2 }, "contentOverrides": { "gaming": 0 } } },
+        { "id": "company", "label": "和主播一起体验剧情或轻松游戏", "effects": { "styles": { "warmth": 4, "intimacy": 4 }, "contentDeltas": { "gaming": 1, "chat": 1 } } },
+        { "id": "challenge", "label": "竞技、挑战、长流程通关都很有吸引力", "effects": { "styles": { "focus": 5, "structure": 4 }, "contentDeltas": { "gaming": 3 } } }
+      ]
+    },
+    {
+      "id": "chat",
+      "dimension": "content_chat",
+      "prompt": "你会为了什么样的杂谈留下来？",
+      "options": [
+        { "id": "not_for_me", "label": "纯聊天容易走神，我需要有具体内容", "effects": { "styles": { "structure": 4 }, "contentDeltas": { "chat": -2, "knowledge": 1 }, "contentOverrides": { "chat": 0 } } },
+        { "id": "relatable", "label": "日常、烦恼和兴趣爱好，有共鸣就会听", "effects": { "styles": { "warmth": 4, "intimacy": 4 }, "contentDeltas": { "chat": 2 } } },
+        { "id": "late_night", "label": "只要有人陪着聊天，深夜也能一直挂着", "effects": { "styles": { "warmth": 5, "intimacy": 5, "energy": 2 }, "contentDeltas": { "chat": 3 } } }
+      ]
+    },
+    {
+      "id": "variety",
+      "dimension": "content_variety",
+      "prompt": "你对联动、企划和整活的态度是？",
+      "options": [
+        { "id": "solo", "label": "更喜欢一个人稳定输出，联动不是必需", "effects": { "styles": { "focus": 4, "chaos": 2 }, "contentDeltas": { "variety": -2 }, "contentOverrides": { "variety": 0 } } },
+        { "id": "sometimes", "label": "偶尔看看，不要压过主播本人的特色", "effects": { "styles": { "chaos": 3 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "more_is_more", "label": "人越多越有意思，想看意外互动和名场面", "effects": { "styles": { "energy": 5, "chaos": 5, "intimacy": 4 }, "contentDeltas": { "variety": 3 } } }
+      ]
+    },
+    {
+      "id": "knowledge",
+      "dimension": "content_knowledge",
+      "prompt": "带有知识、推理、文化或主题讨论的内容会吸引你吗？",
+      "options": [
+        { "id": "not_needed", "label": "不需要，轻松好笑最重要", "effects": { "styles": { "chaos": 4 }, "contentDeltas": { "knowledge": -2 }, "contentOverrides": { "knowledge": 0 } } },
+        { "id": "nice_bonus", "label": "有趣就会听，不想太像上课", "effects": { "styles": { "novelty": 3 }, "contentDeltas": { "knowledge": 1 } } },
+        { "id": "deep_topic", "label": "很喜欢，最好能让我带着新想法离开", "effects": { "styles": { "focus": 5, "structure": 4 }, "contentDeltas": { "knowledge": 3 } } }
+      ]
+    },
+    {
+      "id": "first_click",
+      "dimension": "final_tiebreak",
+      "prompt": "看到一位从没看过的主播，你最可能因为哪句话点进去？",
+      "options": [
+        { "id": "beautiful_voice", "label": "“今晚有一场认真准备的歌回。”", "effects": { "styles": { "structure": 4 }, "contentDeltas": { "music": 2 } } },
+        { "id": "hard_game", "label": "“今天挑战一款很难的游戏，绝不轻易下播。”", "effects": { "styles": { "focus": 5, "energy": 4 }, "contentDeltas": { "gaming": 2 } } },
+        { "id": "weird_story", "label": "“这位主播的世界观好像有点离谱。”", "effects": { "styles": { "roleplay": 5, "novelty": 4 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "come_chat", "label": "“进来坐坐，今天想和大家随便聊聊。”", "effects": { "styles": { "warmth": 5, "intimacy": 5 }, "contentDeltas": { "chat": 2 } } }
+      ]
+    }
+  ]
+}

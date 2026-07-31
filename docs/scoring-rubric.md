@@ -52,6 +52,6 @@ contentDistance = Σ preferenceWeight × abs(userContent - memberContent)
 total = styleDistance × 0.65 + contentDistance × 0.35
 ```
 
-默认权重：`energy`、`intimacy`、`music/gaming/chat` 为 1.25；其余为 1。若用户在题目中明确表达某类内容“完全不想看”，对应内容权重升至 2。
+默认权重：`energy`、`intimacy`、`music/gaming/chat` 为 1.25；其余为 1。若用户把某类内容选为核心，或明确表达“完全不想看”，对应内容权重升至 2。
 
 匹配度不要直接声称为科学百分比。结果页用“非常契合 / 很可能喜欢 / 值得一试”三档文案，并同时展示 2 位备选成员。
