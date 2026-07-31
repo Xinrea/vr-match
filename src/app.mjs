@@ -6,6 +6,10 @@ const app = document.querySelector("#app");
 const { questions } = questionsData;
 const members = membersData.members;
 const state = { screen: "home", index: 0, answers: {} };
+const RADAR_DIMENSIONS = [
+  ["energy", "能量"], ["warmth", "温度"], ["chaos", "节目"], ["structure", "结构"],
+  ["intimacy", "互动"], ["roleplay", "设定"], ["focus", "专注"], ["novelty", "探索"]
+];
 
 const colorFor = (name) => {
   const palettes = [
@@ -19,6 +23,52 @@ const colorFor = (name) => {
 
 const mark = (name, className = "member-mark") => `<div class="${className}" style="--member-color:${colorFor(name)}"><span class="${className === "member-mark" ? "member-initial" : ""}">${name.slice(0, 1)}</span></div>`;
 const layout = (content) => `<div class="topbar"><a class="brand" href="#home" data-action="home">VR<span class="brand-dot">•</span>MATCH</a><span class="eyebrow">viewing companion test</span></div>${content}`;
+
+function pointAt(index, value, radius = 118) {
+  const angle = -Math.PI / 2 + index * (Math.PI * 2 / RADAR_DIMENSIONS.length);
+  const distance = radius * value / 5;
+  return [180 + Math.cos(angle) * distance, 180 + Math.sin(angle) * distance];
+}
+
+function polygonPoints(values, radius) {
+  return RADAR_DIMENSIONS.map(([key], index) => pointAt(index, values[key], radius).map((value) => value.toFixed(1)).join(",")).join(" ");
+}
+
+function overlapDimensions(profile, member) {
+  return RADAR_DIMENSIONS
+    .map(([key, label]) => ({ label, difference: Math.abs(profile.styles[key] - member.style[key]) }))
+    .sort((left, right) => left.difference - right.difference)
+    .slice(0, 3)
+    .map(({ label }) => label)
+    .join("、");
+}
+
+function radarChart(profile, member) {
+  const grids = [1, 2, 3, 4, 5].map((level) => `<polygon class="radar-grid" points="${polygonPoints(Object.fromEntries(RADAR_DIMENSIONS.map(([key]) => [key, level])), 118)}" />`).join("");
+  const axes = RADAR_DIMENSIONS.map(([, label], index) => {
+    const [x, y] = pointAt(index, 5, 118);
+    const [labelX, labelY] = pointAt(index, 5, 148);
+    const anchor = labelX < 155 ? "end" : labelX > 205 ? "start" : "middle";
+    return `<line class="radar-axis" x1="180" y1="180" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" /><text class="radar-label" x="${labelX.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle">${label}</text>`;
+  }).join("");
+  const points = (values, className) => RADAR_DIMENSIONS.map(([key], index) => {
+    const [x, y] = pointAt(index, values[key], 118);
+    return `<circle class="${className}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.5" />`;
+  }).join("");
+  return `
+    <section class="radar-section" aria-labelledby="radar-title">
+      <div class="radar-heading"><h2 id="radar-title">偏好重叠图</h2><p>外缘越近，偏好越强</p></div>
+      <svg class="radar-chart" viewBox="0 0 360 360" role="img" aria-label="你的观看偏好与${member.name}的风格维度雷达图对比">
+        <title>你的偏好与${member.name}的风格维度对比</title>
+        ${grids}${axes}
+        <polygon class="radar-member" points="${polygonPoints(member.style, 118)}" />
+        <polygon class="radar-user" points="${polygonPoints(profile.styles, 118)}" />
+        ${points(member.style, "radar-member-point")}${points(profile.styles, "radar-user-point")}
+      </svg>
+      <div class="radar-legend"><span><i class="legend-dot user"></i>你的偏好</span><span><i class="legend-dot member"></i>${member.name}</span></div>
+      <p class="overlap-note">重合最明显：<strong>${overlapDimensions(profile, member)}</strong></p>
+    </section>`;
+}
 
 function renderHome() {
   state.screen = "home";
@@ -80,6 +130,7 @@ function renderResult() {
           ${profileLink}
         </div>
       </article>
+      ${radarChart(profile, member)}
       <h2 class="alternative-heading">也许会对胃口</h2>
       <div class="alternatives">${alternatives.map(({ member: alternative }) => `
         <article class="alternative">
