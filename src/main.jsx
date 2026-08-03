@@ -13,11 +13,14 @@ const allMemberProfiles = [...membersData.members, ...additionalMembersData.memb
 const memberProfileById = new Map(allMemberProfiles.map((member) => [member.id, member]));
 const members = activeRosterData.members.map(({ id }) => memberProfileById.get(id)).filter(Boolean);
 const RADAR_DIMENSIONS = [["energy", "能量"], ["warmth", "温度"], ["chaos", "节目"], ["structure", "结构"], ["intimacy", "互动"], ["roleplay", "设定"], ["focus", "专注"], ["novelty", "探索"]];
+const withBaseUrl = (path) => /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("data:")
+  ? path
+  : `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
 
 function MemberMark({ member, mini = false }) {
   const className = mini ? "mini-mark" : "member-mark";
   return <div className={className}>
-    {member.visual ? <img className={`member-visual ${member.visualType ?? "avatar"}`} src={member.visual} alt={`${member.name}的主视觉`} /> : <span className={mini ? "" : "member-initial"}>{member.name.slice(0, 1)}</span>}
+    {member.visual ? <img className={`member-visual ${member.visualType ?? "avatar"}`} src={withBaseUrl(member.visual)} alt={`${member.name}的主视觉`} /> : <span className={mini ? "" : "member-initial"}>{member.name.slice(0, 1)}</span>}
   </div>;
 }
 
