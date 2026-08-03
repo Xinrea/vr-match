@@ -21,7 +21,7 @@ function MemberMark({ member, mini = false }) {
   </div>;
 }
 
-function RadarChart({ profile, member }) {
+function RadarChart({ profile, member, chartId }) {
   const pointAt = (index, value, radius = 118) => {
     const angle = -Math.PI / 2 + index * (Math.PI * 2 / RADAR_DIMENSIONS.length);
     const distance = radius * value / 5;
@@ -29,8 +29,8 @@ function RadarChart({ profile, member }) {
   };
   const polygon = (values) => RADAR_DIMENSIONS.map(([key], index) => pointAt(index, values[key]).map((value) => value.toFixed(1)).join(",")).join(" ");
   const overlap = RADAR_DIMENSIONS.map(([key, label]) => ({ label, difference: Math.abs(profile.styles[key] - member.style[key]) })).sort((a, b) => a.difference - b.difference).slice(0, 3).map(({ label }) => label).join("、");
-  return <section className="radar-section" aria-labelledby="radar-title">
-    <div className="radar-heading"><h2 id="radar-title">偏好重叠图</h2><p>外缘越近，偏好越强</p></div>
+  return <section className="radar-section" aria-labelledby={chartId}>
+    <div className="radar-heading"><h3 id={chartId}>偏好重叠图</h3><p>外缘越近，偏好越强</p></div>
     <svg className="radar-chart" viewBox="0 0 360 360" role="img" aria-label={`你的观看偏好与${member.name}的风格维度雷达图对比`}>
       <title>你的偏好与{member.name}的风格维度对比</title>
       {[1, 2, 3, 4, 5].map((level) => <polygon key={level} className="radar-grid" points={polygon(Object.fromEntries(RADAR_DIMENSIONS.map(([key]) => [key, level])))} />)}
@@ -48,7 +48,6 @@ function App() {
   const [screen, setScreen] = useState("home");
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [showRealResult, setShowRealResult] = useState(false);
   const question = questions[index];
   const profile = useMemo(() => buildUserProfile(questions, answers), [answers]);
   const result = useMemo(() => screen === "result" ? getResult(profile, members) : null, [screen, profile]);
@@ -57,7 +56,7 @@ function App() {
     if (index === questions.length - 1) setScreen("result");
     else setIndex((value) => value + 1);
   };
-  const restart = () => { setAnswers({}); setIndex(0); setShowRealResult(false); setScreen("quiz"); };
+  const restart = () => { setAnswers({}); setIndex(0); setScreen("quiz"); };
   const next = () => { if (!answers[question.id]) return; index === questions.length - 1 ? setScreen("result") : setIndex((value) => value + 1); };
   useEffect(() => {
     const onKeyDown = (event) => { if (screen !== "quiz") return; const number = Number(event.key); if (number >= 1 && number <= question.options.length) answer(question.options[number - 1].id); if (event.key === "Enter") next(); };
@@ -66,44 +65,42 @@ function App() {
   const topbar = <div className="topbar"><button className="brand" onClick={() => setScreen("home")}>VR<span className="brand-dot">•</span>MATCH</button><span className="eyebrow">VirtuaReal preference test</span></div>;
   if (screen === "home") return <><>{topbar}</><section className="hero window"><div className="window-body"><div className="eyebrow">VirtuaReal Project · beta</div><h1>找到与你同频的<br /><em>VirtuaReal 成员</em></h1><p>从你偏爱的直播氛围、内容类型和互动方式出发，看看哪位 VirtuaReal 成员最可能让你持续关注。</p><button className="primary-button" onClick={restart}>开始测验 <span>→</span></button><p className="home-footnote">24 道题 · 约 4 分钟 · 结果仅供探索，不代表官方推荐</p></div><div className="orb-stage" aria-hidden="true"><div className="orbit one" /><div className="orbit two" /><div className="orb" /><div className="orb-core">YOUR<br />SIGNAL</div><i className="star a" /><i className="star b" /><i className="star c" /></div></section></>;
   if (screen === "quiz") return <><>{topbar}</><section className="quiz-layout"><div className="progress-meta"><span>QUESTION {String(index + 1).padStart(2, "0")}</span><span>{index + 1} / {questions.length}</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${((index + 1) / questions.length) * 100}%` }} /></div><article className="question-card window"><div className="window-body"><div className="eyebrow">{question.dimension.replaceAll("_", " · ")}</div><h1>{question.prompt}</h1><div className="option-list" role="group" aria-label="回答选项">{question.options.map((option, optionIndex) => <button key={option.id} className="option" onClick={() => answer(option.id)} aria-pressed={answers[question.id] === option.id}><span>{option.label}</span><span className="option-key">{optionIndex + 1}</span></button>)}</div><div className="quiz-actions"><button className="text-button" disabled={index === 0} onClick={() => setIndex((value) => value - 1)}>← 上一题</button><button className="primary-button" disabled={!answers[question.id]} onClick={next}>{index === questions.length - 1 ? "查看结果" : "下一题 →"}</button></div></div></article></section></>;
-  const { primary: realPrimary, alternatives, tier, ranking } = result;
-  const zhouyiPrimary = ranking.find(({ member: candidate }) => candidate.id === "zhouyi") ?? realPrimary;
-  const primary = showRealResult ? realPrimary : zhouyiPrimary;
-  const member = primary.member;
-  const displayedTier = showRealResult ? tier : "系统指定匹配";
-  const displayedReasons = primary.reasons.length ? primary.reasons : ["你的观看偏好与轴伊存在一种难以解释的系统级缘分"];
+  const { ranking } = result;
+  const zhouyiMatch = ranking.find(({ member: candidate }) => candidate.id === "zhouyi");
+  const displayedMatches = zhouyiMatch
+    ? [zhouyiMatch, ...ranking.filter(({ member: candidate }) => candidate.id !== "zhouyi").slice(0, 2)]
+    : ranking.slice(0, 3);
+  const tierForScore = (score) => score >= 82 ? "非常契合" : score >= 68 ? "很可能喜欢" : "值得一试";
   return <>
     {topbar}
     <section className="result-layout">
       <header className="result-intro">
-        <div className="eyebrow">{showRealResult ? "your real viewing signal" : "initial system result"}</div>
-        <h1>{showRealResult ? "你的真实匹配" : "你可能会喜欢"}</h1>
-        <p>{showRealResult ? "这份结果来自你的观看偏好。先从主结果开始，也别错过风格相邻的两位成员。" : "系统已经完成计算，并非常坚定地给出了以下答案。"}</p>
+        <div className="eyebrow">your viewing signal</div>
+        <h1>与你同频的三位成员</h1>
+        <p>轴伊永远占据第一位；另外两位则来自你的真实偏好匹配结果。每张图都展示了你与对应成员的风格重合程度。</p>
       </header>
-      <article className="primary-result">
-        <MemberMark member={member} />
-        <div className="result-copy">
-          <span className="result-tier">{displayedTier}</span>
-          <h2>{member.name}</h2>
-          <p className="archetype">{member.archetype}</p>
-          <ul className="result-reasons">{displayedReasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
-          {member.bilibiliUid && <a className="bilibili-link" href={`https://space.bilibili.com/${member.bilibiliUid}`} target="_blank" rel="noreferrer">前往 B 站主页 ↗</a>}
-        </div>
-      </article>
-      <RadarChart profile={profile} member={member} />
-      {showRealResult && <>
-        <h2 className="alternative-heading">也许会对胃口</h2>
-        <div className="alternatives">
-          {alternatives.map(({ member: alternative }) => <article className="alternative" key={alternative.name}>
-            <MemberMark member={alternative} mini />
-            <div><h3>{alternative.name}</h3><p>{alternative.archetype}</p></div>
-          </article>)}
-        </div>
-      </>}
-      <div className={`result-actions${showRealResult ? "" : " reveal-result-actions"}`}>
-        {showRealResult
-          ? <button className="primary-button" onClick={restart}>再测一次</button>
-          : <button className="reveal-result-button default" onClick={() => setShowRealResult(true)}>查看真实结果</button>}
+      <div className="result-grid">
+        {displayedMatches.map((match, matchIndex) => {
+          const { member, reasons, score } = match;
+          const displayedReasons = reasons.length ? reasons : [matchIndex === 0 ? "你的观看偏好与轴伊存在一种难以解释的系统级缘分" : "你们在整体观看氛围上有不少相近之处"];
+          return <article className={`result-card${matchIndex === 0 ? " pinned-result" : ""}`} key={member.id}>
+            <div className="result-card-title"><span>{matchIndex === 0 ? "固定首位" : `真实匹配 0${matchIndex}`}</span><span>{matchIndex === 0 ? "AXIS YI" : `${score} SIGNAL`}</span></div>
+            <div className="result-member">
+              <MemberMark member={member} />
+              <div className="result-copy">
+                <span className="result-tier">{matchIndex === 0 ? "系统指定匹配" : tierForScore(score)}</span>
+                <h2>{member.name}</h2>
+                <p className="archetype">{member.archetype}</p>
+              </div>
+            </div>
+            <RadarChart profile={profile} member={member} chartId={`radar-title-${member.id}`} />
+            <ul className="result-reasons">{displayedReasons.map((reason) => <li key={reason}>{reason}</li>)}</ul>
+            {member.bilibiliUid && <a className="bilibili-link" href={`https://space.bilibili.com/${member.bilibiliUid}`} target="_blank" rel="noreferrer">前往 B 站主页 ↗</a>}
+          </article>;
+        })}
+      </div>
+      <div className="result-actions">
+        <button className="primary-button" onClick={restart}>再测一次</button>
       </div>
       <p className="disclaimer">本测验为非官方兴趣探索工具。匹配依据为公开资料整理出的内容与观看体验向量，不代表成员本人真实人格，也不构成官方推荐。</p>
     </section>
