@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import questionsData from "../data/quiz-questions.json" with { type: "json" };
 import membersData from "../data/virtuareal-member-vectors.json" with { type: "json" };
+import additionalMembersData from "../data/additional-active-members.json" with { type: "json" };
+import activeRosterData from "../data/active-member-roster.json" with { type: "json" };
 import { buildUserProfile, getResult, rankMembers } from "../src/match-engine.mjs";
 
 const quietMusicAnswers = {
@@ -33,6 +35,16 @@ const livelyGameAnswers = {
 
 const quietMusicProfile = buildUserProfile(questionsData.questions, quietMusicAnswers);
 const livelyGameProfile = buildUserProfile(questionsData.questions, livelyGameAnswers);
+const allMemberProfiles = [...membersData.members, ...additionalMembersData.members];
+const profileById = new Map(allMemberProfiles.map((member) => [member.id, member]));
+
+assert.equal(activeRosterData.members.length, 48);
+assert.equal(new Set(activeRosterData.members.map((member) => member.id)).size, 48);
+assert.deepEqual(activeRosterData.members.filter(({ id }) => !profileById.has(id)), []);
+assert.deepEqual(allMemberProfiles.filter(({ id }) => !activeRosterData.members.some((member) => member.id === id)), []);
+for (const rosterMember of activeRosterData.members) {
+  assert.equal(profileById.get(rosterMember.id).generation, rosterMember.generation, `${rosterMember.name} generation mismatch`);
+}
 
 assert.equal(quietMusicProfile.styles.energy, 1);
 assert.equal(quietMusicProfile.content.music, 5);
