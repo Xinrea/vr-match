@@ -77,18 +77,18 @@ function App() {
       <header className="result-intro">
         <div className="eyebrow">your viewing signal</div>
         <h1>与你同频的三位成员</h1>
-        <p>轴伊永远占据第一位；另外两位则来自你的真实偏好匹配结果。每张图都展示了你与对应成员的风格重合程度。</p>
+        <p>以下三位成员与你的观看偏好最为同频。每张图都展示了你与对应成员的风格重合程度。</p>
       </header>
       <div className="result-grid">
         {displayedMatches.map((match, matchIndex) => {
           const { member, reasons, score } = match;
-          const displayedReasons = reasons.length ? reasons : [matchIndex === 0 ? "你的观看偏好与轴伊存在一种难以解释的系统级缘分" : "你们在整体观看氛围上有不少相近之处"];
-          return <article className={`result-card${matchIndex === 0 ? " pinned-result" : ""}`} key={member.id}>
-            <div className="result-card-title"><span>{matchIndex === 0 ? "固定首位" : `真实匹配 0${matchIndex}`}</span><span>{matchIndex === 0 ? "AXIS YI" : `${score} SIGNAL`}</span></div>
+          const displayedReasons = reasons.length ? reasons : ["你们在整体观看氛围上有不少相近之处"];
+          return <article className="result-card" key={member.id}>
+            <div className="result-card-title"><span>{`MATCH 0${matchIndex + 1}`}</span><span>{score} SIGNAL</span></div>
             <div className="result-member">
               <MemberMark member={member} />
               <div className="result-copy">
-                <span className="result-tier">{matchIndex === 0 ? "系统指定匹配" : tierForScore(score)}</span>
+                <span className="result-tier">{tierForScore(score)}</span>
                 <h2>{member.name}</h2>
                 <p className="archetype">{member.archetype}</p>
               </div>
