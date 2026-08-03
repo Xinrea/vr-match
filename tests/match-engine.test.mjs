@@ -38,8 +38,8 @@ const livelyGameProfile = buildUserProfile(questionsData.questions, livelyGameAn
 const allMemberProfiles = [...membersData.members, ...additionalMembersData.members];
 const profileById = new Map(allMemberProfiles.map((member) => [member.id, member]));
 
-assert.equal(activeRosterData.members.length, 48);
-assert.equal(new Set(activeRosterData.members.map((member) => member.id)).size, 48);
+assert.equal(activeRosterData.members.length, 52);
+assert.equal(new Set(activeRosterData.members.map((member) => member.id)).size, 52);
 assert.deepEqual(activeRosterData.members.filter(({ id }) => !profileById.has(id)), []);
 assert.deepEqual(allMemberProfiles.filter(({ id }) => !activeRosterData.members.some((member) => member.id === id)), []);
 for (const rosterMember of activeRosterData.members) {

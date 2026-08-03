@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-03",
+  "version": "2026-08-03.1",
   "scope": "VirtuaReal Project active members; graduated and inactive members excluded",
   "members": [
     { "id": "aiyin", "name": "艾因", "generation": 1 },
@@ -49,6 +49,10 @@
     { "id": "huizeman", "name": "灰泽满", "generation": 27 },
     { "id": "liko", "name": "莉蔻", "generation": 27 },
     { "id": "keluoya", "name": "克罗雅", "generation": 27 },
-    { "id": "izayoi", "name": "十六萤", "generation": 27 }
+    { "id": "izayoi", "name": "十六萤", "generation": 27 },
+    { "id": "mumu", "name": "沐霂", "generation": "四禧丸子" },
+    { "id": "tiandou", "name": "恬豆", "generation": "四禧丸子" },
+    { "id": "lian", "name": "梨安", "generation": "四禧丸子" },
+    { "id": "yoyi", "name": "又一", "generation": "四禧丸子" }
   ]
 }
