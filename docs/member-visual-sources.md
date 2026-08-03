@@ -11,12 +11,14 @@
 
 图片已缩放后保存在 `public/members/`。
 
-## 官网尚未收录的新成员（8 位）
+## 官网尚未收录的新成员（10 位）
 
-花礼、妮慕、沐毛、命依、三理、莉蔻、十六萤使用各自公开 B 站个人主页头像。泽音Melody 使用其 B 站公开动态中的完整立绘，并已确认个人主页 UID 为 `1203217682`：
+花礼、妮慕、沐毛、命依、三理、莉蔻、十六萤使用各自公开 B 站个人主页头像。泽音Melody、点酥Susu、桃代Momoka 使用各自 B 站公开动态中的独立视觉图：
 
 - 个人主页：[泽音Melody](https://space.bilibili.com/1203217682)
-- 视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/9c60ee088ea1e11f18c97b7432f78db31203217682.jpg@1052w_!web-dynamic.avif)
+- 泽音视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/9c60ee088ea1e11f18c97b7432f78db31203217682.jpg@1052w_!web-dynamic.avif)
+- 点酥视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/6cec310a7daa1d8ef5858a58932e58851323355750.png@1052w_!web-dynamic.avif)
+- 桃代视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/82b0fe42254b206ea071cbee2f9de2092040984069.png@1052w_!web-dynamic.avif)
 
 数据文件的 `visualSource` 字段记录每位成员的来源类型。
 
