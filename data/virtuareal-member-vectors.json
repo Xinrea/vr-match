@@ -201,17 +201,18 @@
     },
     {
       "id": "zeyin",
-      "name": "泽音",
-      "visual": "/members/zeyin.webp",
-      "visualType": "announcement",
-      "visualSource": "官方 B 站出道公告",
+      "name": "泽音Melody",
+      "visual": "/members/zeyin-melody.webp",
+      "visualType": "tachie",
+      "visualSource": "泽音Melody B 站动态公开立绘",
       "generation": 24,
+      "bilibiliUid": "1203217682",
       "archetype": "坚韧温暖的歌者",
       "style": { "energy": 3, "warmth": 5, "chaos": 2, "structure": 4, "intimacy": 4, "roleplay": 4, "focus": 4, "novelty": 3 },
       "content": { "music": 5, "gaming": 1, "chat": 4, "variety": 2, "knowledge": 1 },
-      "evidence": ["community_wiki", "recent_bilibili_clips"],
+      "evidence": ["official_bilibili_profile", "community_wiki", "recent_bilibili_clips"],
       "confidence": "medium",
-      "reviewNote": "回归、歌声与守护主题构成温暖音乐型的推荐理由；需补本人主页 ID 与近期回放。"
+      "reviewNote": "本人 B 站主页与公开立绘已确认；回归、歌声与守护主题构成温暖音乐型的推荐理由。"
     },
     {
       "id": "nimue",
