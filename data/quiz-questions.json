@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "instructions": "每题选一个最接近的答案。题目衡量的是观看偏好，不衡量性格。",
   "questions": [
     {
@@ -111,6 +111,136 @@
         { "id": "hard_game", "label": "“今天挑战一款很难的游戏，绝不轻易下播。”", "effects": { "styles": { "focus": 5, "energy": 4 }, "contentDeltas": { "gaming": 2 } } },
         { "id": "weird_story", "label": "“这位主播的世界观好像有点离谱。”", "effects": { "styles": { "roleplay": 5, "novelty": 4 }, "contentDeltas": { "variety": 1 } } },
         { "id": "come_chat", "label": "“进来坐坐，今天想和大家随便聊聊。”", "effects": { "styles": { "warmth": 5, "intimacy": 5 }, "contentDeltas": { "chat": 2 } } }
+      ]
+    },
+    {
+      "id": "stream_entry",
+      "dimension": "energy_and_intimacy",
+      "prompt": "刚进一个直播间时，什么状态会让你最舒服？",
+      "options": [
+        { "id": "quiet_start", "label": "主播在安静做自己的事，我慢慢融入", "effects": { "styles": { "energy": 1, "intimacy": 2, "focus": 4 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "friendly_greeting", "label": "有人自然地打招呼，像回到熟悉的小房间", "effects": { "styles": { "energy": 3, "warmth": 5, "intimacy": 5 }, "contentDeltas": { "chat": 2 } } },
+        { "id": "instant_scene", "label": "最好立刻有目标、名场面或热闹互动", "effects": { "styles": { "energy": 5, "chaos": 4, "structure": 4 }, "contentDeltas": { "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "live_length",
+      "dimension": "focus",
+      "prompt": "你理想中的单场直播时长是？",
+      "options": [
+        { "id": "short", "label": "一小时左右，轻松看完最好", "effects": { "styles": { "focus": 2, "structure": 4 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "medium", "label": "两三小时，有完整内容也不会太累", "effects": { "styles": { "focus": 3, "structure": 3 }, "contentDeltas": { "gaming": 1, "chat": 1 } } },
+        { "id": "long", "label": "越能沉浸越好，长流程和深夜陪伴都可以", "effects": { "styles": { "focus": 5, "intimacy": 4, "energy": 3 }, "contentDeltas": { "gaming": 2, "chat": 2 } } }
+      ]
+    },
+    {
+      "id": "humor_style",
+      "dimension": "chaos",
+      "prompt": "你更喜欢哪种幽默感？",
+      "options": [
+        { "id": "dry", "label": "冷静吐槽和不动声色的机智", "effects": { "styles": { "chaos": 2, "focus": 4, "warmth": 2 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "warm", "label": "轻松自然，大家一起笑就很好", "effects": { "styles": { "chaos": 3, "warmth": 4, "intimacy": 4 }, "contentDeltas": { "chat": 1, "variety": 1 } } },
+        { "id": "wild", "label": "越出乎意料越好，失控也是节目的一部分", "effects": { "styles": { "chaos": 5, "energy": 5, "novelty": 4 }, "contentDeltas": { "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "audience_role",
+      "dimension": "intimacy",
+      "prompt": "看直播时，你希望自己扮演什么角色？",
+      "options": [
+        { "id": "viewer", "label": "安静欣赏内容，不一定要发弹幕", "effects": { "styles": { "intimacy": 1, "focus": 4, "structure": 4 }, "contentDeltas": { "music": 1 } } },
+        { "id": "participant", "label": "偶尔接梗、投票或参与话题", "effects": { "styles": { "intimacy": 3, "chaos": 3 }, "contentDeltas": { "chat": 1, "variety": 1 } } },
+        { "id": "regular", "label": "想成为能被记住、一起陪伴的常驻观众", "effects": { "styles": { "intimacy": 5, "warmth": 5, "energy": 4 }, "contentDeltas": { "chat": 2 } } }
+      ]
+    },
+    {
+      "id": "music_mode",
+      "dimension": "content_music",
+      "prompt": "如果是音乐内容，你更在意什么？",
+      "options": [
+        { "id": "casual_listening", "label": "随性唱唱，适合当作轻松背景", "effects": { "styles": { "energy": 2, "intimacy": 4 }, "contentDeltas": { "music": 1, "chat": 1 } } },
+        { "id": "song_story", "label": "通过选曲和情绪讲出一段故事", "effects": { "styles": { "warmth": 4, "roleplay": 4, "focus": 3 }, "contentDeltas": { "music": 2 } } },
+        { "id": "performance", "label": "高完成度演唱、编排和舞台表现", "effects": { "styles": { "structure": 5, "focus": 4, "intimacy": 2 }, "contentDeltas": { "music": 3 } } }
+      ]
+    },
+    {
+      "id": "game_playstyle",
+      "dimension": "content_gaming",
+      "prompt": "遇到没玩过的游戏时，你最想看主播怎么做？",
+      "options": [
+        { "id": "story", "label": "慢慢体验剧情，边玩边分享感受", "effects": { "styles": { "warmth": 4, "focus": 3 }, "contentDeltas": { "gaming": 2, "chat": 1 } } },
+        { "id": "skill", "label": "研究机制、追求技术或挑战高难度", "effects": { "styles": { "focus": 5, "structure": 5 }, "contentDeltas": { "gaming": 3 } } },
+        { "id": "messy", "label": "大胆乱试，翻车和意外反应更有趣", "effects": { "styles": { "chaos": 5, "novelty": 5, "energy": 4 }, "contentDeltas": { "gaming": 1, "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "topic_switching",
+      "dimension": "structure_and_novelty",
+      "prompt": "主播从一个话题跳到另一个话题时，你的感觉是？",
+      "options": [
+        { "id": "stay_on_track", "label": "希望有主线，聊深一点比聊多一点重要", "effects": { "styles": { "structure": 5, "focus": 5, "novelty": 1 }, "contentDeltas": { "knowledge": 1 } } },
+        { "id": "some_changes", "label": "有些跳跃更自然，但要能再回到重点", "effects": { "styles": { "structure": 3, "focus": 3, "novelty": 3 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "follow_the_thread", "label": "顺着灵感一路跑题，常常能发现新乐趣", "effects": { "styles": { "structure": 1, "chaos": 4, "novelty": 5 }, "contentDeltas": { "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "reaction_content",
+      "dimension": "variety_and_chaos",
+      "prompt": "你会点开主播看新作品、热点或奇怪素材的反应直播吗？",
+      "options": [
+        { "id": "rare", "label": "不太会，更想看原创或稳定的常规内容", "effects": { "styles": { "focus": 4, "chaos": 1 }, "contentDeltas": { "variety": -1 } } },
+        { "id": "with_context", "label": "有自己的观点和主题时会很想看", "effects": { "styles": { "structure": 4, "novelty": 3 }, "contentDeltas": { "variety": 1, "knowledge": 1 } } },
+        { "id": "instant_reaction", "label": "会，第一时间的惊喜和吐槽很有感染力", "effects": { "styles": { "energy": 5, "chaos": 4, "novelty": 5 }, "contentDeltas": { "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "creative_process",
+      "dimension": "focus_and_content",
+      "prompt": "你对画画、制作、练习或准备过程直播的态度是？",
+      "options": [
+        { "id": "not_interest", "label": "不太会点开，我想看节奏更快的内容", "effects": { "styles": { "energy": 4, "focus": 2 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "background", "label": "适合静静挂着，陪我做自己的事", "effects": { "styles": { "energy": 1, "warmth": 4, "focus": 4 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "craft", "label": "喜欢看一个作品或技能慢慢成形", "effects": { "styles": { "focus": 5, "structure": 4, "novelty": 3 }, "contentDeltas": { "knowledge": 2 } } }
+      ]
+    },
+    {
+      "id": "schedule_preference",
+      "dimension": "structure",
+      "prompt": "关于开播计划，你更偏好哪一种？",
+      "options": [
+        { "id": "predictable", "label": "固定时间和明确预告，会让我更愿意追", "effects": { "styles": { "structure": 5, "focus": 4 }, "contentDeltas": {} } },
+        { "id": "flexible", "label": "大致有规律就好，偶尔惊喜开播也不错", "effects": { "styles": { "structure": 3, "novelty": 3 }, "contentDeltas": { "chat": 1 } } },
+        { "id": "spontaneous", "label": "随时出现最好，想到就开更有生活感", "effects": { "styles": { "structure": 1, "intimacy": 5, "novelty": 4 }, "contentDeltas": { "chat": 2 } } }
+      ]
+    },
+    {
+      "id": "comfort_level",
+      "dimension": "warmth",
+      "prompt": "当你心情不好时，更想点开什么直播？",
+      "options": [
+        { "id": "quiet_company", "label": "不必多说，安静陪着就好", "effects": { "styles": { "energy": 1, "warmth": 4, "intimacy": 4 }, "contentDeltas": { "chat": 2 } } },
+        { "id": "kind_words", "label": "温柔聊天和一些能被理解的共鸣", "effects": { "styles": { "warmth": 5, "intimacy": 5 }, "contentDeltas": { "chat": 3 } } },
+        { "id": "cheer_up", "label": "热闹一点，把注意力从坏情绪里拉走", "effects": { "styles": { "energy": 5, "chaos": 4, "warmth": 3 }, "contentDeltas": { "variety": 2 } } }
+      ]
+    },
+    {
+      "id": "collaboration_role",
+      "dimension": "variety",
+      "prompt": "在多人联动里，你最关注什么？",
+      "options": [
+        { "id": "host_focus", "label": "还是想看主播本人，其他人只是点缀", "effects": { "styles": { "focus": 4, "intimacy": 3 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "chemistry", "label": "朋友之间的默契和自然聊天", "effects": { "styles": { "warmth": 4, "intimacy": 5, "chaos": 3 }, "contentDeltas": { "chat": 1, "variety": 2 } } },
+        { "id": "chaotic_group", "label": "陌生组合、对抗与意外碰撞，越热闹越好", "effects": { "styles": { "energy": 5, "chaos": 5, "novelty": 4 }, "contentDeltas": { "variety": 3 } } }
+      ]
+    },
+    {
+      "id": "new_world",
+      "dimension": "novelty_and_roleplay",
+      "prompt": "面对一个全新的企划或世界观，你通常会？",
+      "options": [
+        { "id": "familiar", "label": "先看熟悉的内容，确认适合再尝试", "effects": { "styles": { "novelty": 1, "roleplay": 2, "focus": 4 }, "contentDeltas": {} } },
+        { "id": "curious", "label": "有一点兴趣就会看看设定和入口", "effects": { "styles": { "novelty": 3, "roleplay": 3 }, "contentDeltas": { "variety": 1 } } },
+        { "id": "dive_in", "label": "会立刻想弄懂规则、角色和隐藏细节", "effects": { "styles": { "novelty": 5, "roleplay": 5, "focus": 4 }, "contentDeltas": { "knowledge": 2 } } }
       ]
     }
   ]
