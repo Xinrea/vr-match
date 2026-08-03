@@ -11,14 +11,16 @@
 
 图片已缩放后保存在 `public/members/`。
 
-## 官网尚未收录的新成员（10 位）
+## 官网尚未收录的新成员（11 位）
 
-花礼、妮慕、沐毛、命依、三理、莉蔻、十六萤使用各自公开 B 站个人主页头像。泽音Melody、点酥Susu、桃代Momoka 使用各自 B 站公开动态中的独立视觉图：
+花礼、妮慕、沐毛、命依、三理、莉蔻、十六萤使用各自公开 B 站个人主页头像。泽音Melody、点酥Susu、桃代Momoka、柚雨Kioi 使用各自 B 站公开动态中的独立视觉图：
 
 - 个人主页：[泽音Melody](https://space.bilibili.com/1203217682)
 - 泽音视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/9c60ee088ea1e11f18c97b7432f78db31203217682.jpg@1052w_!web-dynamic.avif)
 - 点酥视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/6cec310a7daa1d8ef5858a58932e58851323355750.png@1052w_!web-dynamic.avif)
 - 桃代视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/82b0fe42254b206ea071cbee2f9de2092040984069.png@1052w_!web-dynamic.avif)
+- 柚雨主页：[柚雨Kioi](https://space.bilibili.com/1096820127)
+- 柚雨视觉原图：[B 站动态图片](https://i0.hdslb.com/bfs/new_dyn/12f359091bb167aabd0efa485a8fa95b1096820127.png)；本地素材截取左侧标准状态，保留透明背景。
 
 数据文件的 `visualSource` 字段记录每位成员的来源类型。
 
