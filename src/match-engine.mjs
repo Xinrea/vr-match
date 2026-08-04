@@ -122,6 +122,12 @@ export function rankMembers(profile, members) {
     .sort((left, right) => right.score - left.score || left.distance - right.distance || left.member.name.localeCompare(right.member.name, "zh-CN"));
 }
 
+/** Narrows the candidate pool without changing the viewer's scoring vector. */
+export function filterMembersByGenderPreference(members, preference) {
+  if (preference !== "male" && preference !== "female") return members;
+  return members.filter((member) => member.gender === preference);
+}
+
 export function getResult(profile, members) {
   const ranking = rankMembers(profile, members);
   const primary = ranking[0] ?? null;

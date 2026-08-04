@@ -3,6 +3,16 @@
   "instructions": "每题选一个最接近的答案。题目衡量的是观看偏好，不衡量性格。",
   "questions": [
     {
+      "id": "viewer_gender_preference",
+      "dimension": "candidate_filter",
+      "prompt": "你平时更常看男 V 还是女 V？",
+      "options": [
+        { "id": "male", "label": "基本只看男 V", "effects": { "styles": {}, "contentDeltas": {} } },
+        { "id": "female", "label": "基本只看女 V", "effects": { "styles": {}, "contentDeltas": {} } },
+        { "id": "all", "label": "都看", "effects": { "styles": {}, "contentDeltas": {} } }
+      ]
+    },
+    {
       "id": "energy_after_work",
       "dimension": "energy",
       "prompt": "结束忙碌的一天后，你打开直播最想进入怎样的氛围？",

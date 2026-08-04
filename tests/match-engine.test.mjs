@@ -3,7 +3,7 @@ import questionsData from "../data/quiz-questions.json" with { type: "json" };
 import membersData from "../data/virtuareal-member-vectors.json" with { type: "json" };
 import additionalMembersData from "../data/additional-active-members.json" with { type: "json" };
 import activeRosterData from "../data/active-member-roster.json" with { type: "json" };
-import { buildUserProfile, getResult, rankMembers } from "../src/match-engine.mjs";
+import { buildUserProfile, filterMembersByGenderPreference, getResult, rankMembers } from "../src/match-engine.mjs";
 
 const quietMusicAnswers = {
   energy_after_work: "soft",
@@ -37,14 +37,40 @@ const quietMusicProfile = buildUserProfile(questionsData.questions, quietMusicAn
 const livelyGameProfile = buildUserProfile(questionsData.questions, livelyGameAnswers);
 const allMemberProfiles = [...membersData.members, ...additionalMembersData.members];
 const profileById = new Map(allMemberProfiles.map((member) => [member.id, member]));
+const members = activeRosterData.members.map((rosterMember) => ({ ...profileById.get(rosterMember.id), ...rosterMember }));
 
 assert.equal(activeRosterData.members.length, 52);
+assert.equal(questionsData.questions.length, 25);
+assert.equal(questionsData.questions[0].id, "viewer_gender_preference");
 assert.equal(new Set(activeRosterData.members.map((member) => member.id)).size, 52);
 assert.deepEqual(activeRosterData.members.filter(({ id }) => !profileById.has(id)), []);
 assert.deepEqual(allMemberProfiles.filter(({ id }) => !activeRosterData.members.some((member) => member.id === id)), []);
 for (const rosterMember of activeRosterData.members) {
   assert.equal(profileById.get(rosterMember.id).generation, rosterMember.generation, `${rosterMember.name} generation mismatch`);
+  assert.ok(["male", "female"].includes(rosterMember.gender), `${rosterMember.name} gender is missing or invalid`);
 }
+
+const defaultProfile = buildUserProfile(questionsData.questions, {});
+const filteredQuestionProfile = buildUserProfile(questionsData.questions, { viewer_gender_preference: "male" });
+assert.deepEqual(filteredQuestionProfile.styles, defaultProfile.styles);
+assert.deepEqual(filteredQuestionProfile.content, defaultProfile.content);
+assert.ok(filteredQuestionProfile.answeredQuestionIds.includes("viewer_gender_preference"));
+
+const maleMembers = filterMembersByGenderPreference(members, "male");
+const femaleMembers = filterMembersByGenderPreference(members, "female");
+assert.ok(maleMembers.length >= 3);
+assert.ok(femaleMembers.length >= 3);
+assert.ok(maleMembers.every((member) => member.gender === "male"));
+assert.ok(femaleMembers.every((member) => member.gender === "female"));
+assert.equal(filterMembersByGenderPreference(members, "all").length, members.length);
+assert.equal(filterMembersByGenderPreference(members, undefined).length, members.length);
+assert.ok(getResult(livelyGameProfile, maleMembers).ranking.every(({ member }) => member.gender === "male"));
+assert.ok(getResult(livelyGameProfile, femaleMembers).ranking.every(({ member }) => member.gender === "female"));
+const zhouyi = members.find((member) => member.id === "zhouyi");
+const maleCandidatesWithPinnedZhouyi = [zhouyi, ...maleMembers];
+const maleRankingWithPinnedZhouyi = getResult(livelyGameProfile, maleCandidatesWithPinnedZhouyi).ranking;
+assert.ok(maleRankingWithPinnedZhouyi.some(({ member }) => member.id === "zhouyi"));
+assert.ok(maleRankingWithPinnedZhouyi.filter(({ member }) => member.id !== "zhouyi").every(({ member }) => member.gender === "male"));
 
 assert.equal(quietMusicProfile.styles.energy, 1);
 assert.equal(quietMusicProfile.content.music, 5);

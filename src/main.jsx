@@ -4,14 +4,17 @@ import questionsData from "../data/quiz-questions.json";
 import membersData from "../data/virtuareal-member-vectors.json";
 import additionalMembersData from "../data/additional-active-members.json";
 import activeRosterData from "../data/active-member-roster.json";
-import { buildUserProfile, getResult } from "./match-engine.mjs";
+import { buildUserProfile, filterMembersByGenderPreference, getResult } from "./match-engine.mjs";
 import "98.css";
 import "../styles.css";
 
 const { questions } = questionsData;
 const allMemberProfiles = [...membersData.members, ...additionalMembersData.members];
 const memberProfileById = new Map(allMemberProfiles.map((member) => [member.id, member]));
-const members = activeRosterData.members.map(({ id }) => memberProfileById.get(id)).filter(Boolean);
+const members = activeRosterData.members.map((rosterMember) => {
+  const profile = memberProfileById.get(rosterMember.id);
+  return profile ? { ...profile, ...rosterMember } : null;
+}).filter(Boolean);
 const RADAR_DIMENSIONS = [["energy", "能量"], ["warmth", "温度"], ["chaos", "节目"], ["structure", "结构"], ["intimacy", "互动"], ["roleplay", "设定"], ["focus", "专注"], ["novelty", "探索"]];
 const withBaseUrl = (path) => /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("data:")
   ? path
@@ -53,7 +56,14 @@ function App() {
   const [answers, setAnswers] = useState({});
   const question = questions[index];
   const profile = useMemo(() => buildUserProfile(questions, answers), [answers]);
-  const result = useMemo(() => screen === "result" ? getResult(profile, members) : null, [screen, profile]);
+  const matchCandidates = useMemo(() => {
+    const filteredMembers = filterMembersByGenderPreference(members, answers.viewer_gender_preference ?? "all");
+    const zhouyi = members.find((member) => member.id === "zhouyi");
+    return zhouyi && !filteredMembers.some((member) => member.id === zhouyi.id)
+      ? [zhouyi, ...filteredMembers]
+      : filteredMembers;
+  }, [answers.viewer_gender_preference]);
+  const result = useMemo(() => screen === "result" ? getResult(profile, matchCandidates) : null, [screen, profile, matchCandidates]);
   const answer = (optionId) => {
     setAnswers((current) => ({ ...current, [question.id]: optionId }));
     if (index === questions.length - 1) setScreen("result");
@@ -66,7 +76,7 @@ function App() {
     window.addEventListener("keydown", onKeyDown); return () => window.removeEventListener("keydown", onKeyDown);
   });
   const topbar = <div className="topbar"><button className="brand" onClick={() => setScreen("home")}>VR<span className="brand-dot">•</span>MATCH</button><span className="eyebrow">VirtuaReal preference test</span></div>;
-  if (screen === "home") return <><>{topbar}</><section className="hero window"><div className="window-body"><div className="eyebrow">VirtuaReal Project · beta</div><h1>找到与你同频的<br /><em>VirtuaReal 成员</em></h1><p>从你偏爱的直播氛围、内容类型和互动方式出发，看看哪位 VirtuaReal 成员最可能让你持续关注。</p><div className="hero-actions"><button className="primary-button" onClick={restart}>开始测验 <span>→</span></button><a className="github-link" href="https://github.com/Xinrea/vr-match" target="_blank" rel="noreferrer">GitHub：Xinrea/vr-match ↗</a></div><p className="home-footnote">24 道题 · 约 4 分钟 · 结果仅供探索，不代表官方推荐</p></div><div className="orb-stage" aria-hidden="true"><div className="orbit one" /><div className="orbit two" /><div className="orb" /><div className="orb-core">YOUR<br />SIGNAL</div><i className="star a" /><i className="star b" /><i className="star c" /></div></section></>;
+  if (screen === "home") return <><>{topbar}</><section className="hero window"><div className="window-body"><div className="eyebrow">VirtuaReal Project · beta</div><h1>找到与你同频的<br /><em>VirtuaReal 成员</em></h1><p>从你偏爱的直播氛围、内容类型和互动方式出发，看看哪位 VirtuaReal 成员最可能让你持续关注。</p><div className="hero-actions"><button className="primary-button" onClick={restart}>开始测验 <span>→</span></button><a className="github-link" href="https://github.com/Xinrea/vr-match" target="_blank" rel="noreferrer">GitHub：Xinrea/vr-match ↗</a></div><p className="home-footnote">25 道题 · 约 4 分钟 · 结果仅供探索，不代表官方推荐</p></div><div className="orb-stage" aria-hidden="true"><div className="orbit one" /><div className="orbit two" /><div className="orb" /><div className="orb-core">YOUR<br />SIGNAL</div><i className="star a" /><i className="star b" /><i className="star c" /></div></section></>;
   if (screen === "quiz") return <><>{topbar}</><section className="quiz-layout"><div className="progress-meta"><span>QUESTION {String(index + 1).padStart(2, "0")}</span><span>{index + 1} / {questions.length}</span></div><div className="progress-track"><div className="progress-value" style={{ width: `${((index + 1) / questions.length) * 100}%` }} /></div><article className="question-card window"><div className="window-body"><div className="eyebrow">{question.dimension.replaceAll("_", " · ")}</div><h1>{question.prompt}</h1><div className="option-list" role="group" aria-label="回答选项">{question.options.map((option, optionIndex) => <button key={option.id} className="option" onClick={() => answer(option.id)} aria-pressed={answers[question.id] === option.id}><span>{option.label}</span><span className="option-key">{optionIndex + 1}</span></button>)}</div><div className="quiz-actions"><button className="text-button" disabled={index === 0} onClick={() => setIndex((value) => value - 1)}>← 上一题</button><button className="primary-button" disabled={!answers[question.id]} onClick={next}>{index === questions.length - 1 ? "查看结果" : "下一题 →"}</button></div></div></article></section></>;
   const { ranking } = result;
   const zhouyiMatch = ranking.find(({ member: candidate }) => candidate.id === "zhouyi");
