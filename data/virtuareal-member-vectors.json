@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "updatedAt": "2026-07-31",
+  "version": "0.2.0",
+  "updatedAt": "2026-08-04",
   "scope": "VirtuaReal Project MVP candidate pool",
   "disclaimer": "Scores model viewing experience for recommendation. They are editorial product estimates, not objective personality judgments.",
   "members": [
@@ -29,10 +29,10 @@
       "bilibiliUid": "480680646",
       "archetype": "冷感精确的音乐同好",
       "style": { "energy": 3, "warmth": 3, "chaos": 2, "structure": 4, "intimacy": 3, "roleplay": 1, "focus": 5, "novelty": 3 },
-      "content": { "music": 5, "gaming": 2, "chat": 3, "variety": 2, "knowledge": 2 },
-      "evidence": ["official_bio", "recent_bilibili_clips"],
+      "content": { "music": 5, "gaming": 4, "chat": 3, "variety": 2, "knowledge": 2 },
+      "evidence": ["official_bio", "recent_bilibili_clips", "community_wiki"],
       "confidence": "high",
-      "reviewNote": "官网与百科均明确强调音乐、精准主义和简洁有效的表达。"
+      "reviewNote": "资料明确强调音乐、精准主义与固定深夜歌手活动，同时记录了高频下午游戏直播，因此音乐和游戏均作为主要匹配方向。"
     },
     {
       "id": "kouichi",
@@ -58,11 +58,11 @@
       "generation": 7,
       "bilibiliUid": "56748733",
       "archetype": "爽朗的通宵游戏伙伴",
-      "style": { "energy": 5, "warmth": 3, "chaos": 4, "structure": 2, "intimacy": 4, "roleplay": 2, "focus": 4, "novelty": 3 },
+      "style": { "energy": 5, "warmth": 3, "chaos": 4, "structure": 3, "intimacy": 4, "roleplay": 2, "focus": 5, "novelty": 4 },
       "content": { "music": 1, "gaming": 5, "chat": 4, "variety": 3, "knowledge": 1 },
       "evidence": ["official_bio", "community_wiki"],
       "confidence": "medium",
-      "reviewNote": "官方式简介强调开朗奔放、通宵与速通游戏；上线前需补近期回放。"
+      "reviewNote": "萌娘百科简介明确强调开朗奔放、通宵游戏与速通挑战，因此提高目标结构、长线专注和游戏探索权重。"
     },
     {
       "id": "sui",
@@ -148,11 +148,11 @@
       "generation": 20,
       "bilibiliUid": "1789460279",
       "archetype": "宅系未来博士",
-      "style": { "energy": 3, "warmth": 3, "chaos": 3, "structure": 4, "intimacy": 3, "roleplay": 5, "focus": 4, "novelty": 4 },
-      "content": { "music": 2, "gaming": 3, "chat": 4, "variety": 3, "knowledge": 4 },
+      "style": { "energy": 3, "warmth": 3, "chaos": 3, "structure": 4, "intimacy": 3, "roleplay": 5, "focus": 3, "novelty": 4 },
+      "content": { "music": 2, "gaming": 3, "chat": 4, "variety": 3, "knowledge": 2 },
       "evidence": ["official_bio", "community_wiki"],
       "confidence": "medium",
-      "reviewNote": "未来研究与宅系反差使主题感、世界观和知识型话题权重较高。"
+      "reviewNote": "未来博士与宅系反差支持较高世界观和新奇度，但现有条目缺少稳定知识类直播依据，不再把博士角色设定直接计为知识输出。"
     },
     {
       "id": "nagisa",
@@ -193,11 +193,11 @@
       "generation": 23,
       "bilibiliUid": "1048135385",
       "archetype": "高节目效果除灵部长",
-      "style": { "energy": 5, "warmth": 4, "chaos": 5, "structure": 3, "intimacy": 4, "roleplay": 5, "focus": 2, "novelty": 4 },
-      "content": { "music": 2, "gaming": 3, "chat": 4, "variety": 5, "knowledge": 2 },
+      "style": { "energy": 5, "warmth": 4, "chaos": 5, "structure": 3, "intimacy": 4, "roleplay": 5, "focus": 3, "novelty": 5 },
+      "content": { "music": 3, "gaming": 4, "chat": 4, "variety": 5, "knowledge": 2 },
       "evidence": ["official_announcement", "community_wiki", "recent_bilibili_clips"],
       "confidence": "high",
-      "reviewNote": "除灵师设定和大量联动/梗向观看体验使其成为高能量结果的代表。"
+      "reviewNote": "条目明确记录唱歌、探灵、恐怖游戏、广泛游戏尝试及原创歌与 vlog 目标；在高能节目效果之外，提高游戏、探索和音乐权重。"
     },
     {
       "id": "zeyin",
@@ -208,11 +208,11 @@
       "generation": 24,
       "bilibiliUid": "1203217682",
       "archetype": "坚韧温暖的歌者",
-      "style": { "energy": 3, "warmth": 5, "chaos": 2, "structure": 4, "intimacy": 4, "roleplay": 4, "focus": 4, "novelty": 3 },
-      "content": { "music": 5, "gaming": 1, "chat": 4, "variety": 2, "knowledge": 1 },
+      "style": { "energy": 3, "warmth": 5, "chaos": 2, "structure": 4, "intimacy": 4, "roleplay": 3, "focus": 4, "novelty": 3 },
+      "content": { "music": 5, "gaming": 3, "chat": 4, "variety": 3, "knowledge": 1 },
       "evidence": ["official_bilibili_profile", "community_wiki", "recent_bilibili_clips"],
       "confidence": "medium",
-      "reviewNote": "本人 B 站主页与公开立绘已确认；回归、歌声与守护主题构成温暖音乐型的推荐理由。"
+      "reviewNote": "条目记录歌回较多、直播时间固定且较长，并涉及多种游戏；以温柔包容和音乐为主轴，同时提高游戏与综合内容权重。"
     },
     {
       "id": "nimue",
@@ -224,10 +224,10 @@
       "bilibiliUid": "1085959883",
       "archetype": "对一切都好奇的童话旅伴",
       "style": { "energy": 4, "warmth": 4, "chaos": 3, "structure": 2, "intimacy": 4, "roleplay": 5, "focus": 2, "novelty": 5 },
-      "content": { "music": 2, "gaming": 3, "chat": 5, "variety": 4, "knowledge": 2 },
+      "content": { "music": 4, "gaming": 4, "chat": 4, "variety": 4, "knowledge": 2 },
       "evidence": ["official_announcement", "community_wiki"],
       "confidence": "medium",
-      "reviewNote": "童话穿越与好奇探索提供高新奇度；内容权重需用近期回放复核。"
+      "reviewNote": "萌娘百科明确记录喜欢唱歌、恐怖游戏及强好奇心；保留童话探索感，并提高音乐和游戏权重。"
     },
     {
       "id": "meme",
@@ -253,11 +253,11 @@
       "generation": 25,
       "bilibiliUid": "1985811151",
       "archetype": "温柔悠哉的二次元死神",
-      "style": { "energy": 2, "warmth": 5, "chaos": 3, "structure": 2, "intimacy": 4, "roleplay": 5, "focus": 2, "novelty": 3 },
-      "content": { "music": 2, "gaming": 2, "chat": 5, "variety": 3, "knowledge": 1 },
+      "style": { "energy": 2, "warmth": 5, "chaos": 3, "structure": 2, "intimacy": 4, "roleplay": 5, "focus": 3, "novelty": 3 },
+      "content": { "music": 2, "gaming": 4, "chat": 4, "variety": 3, "knowledge": 1 },
       "evidence": ["official_announcement", "community_wiki"],
       "confidence": "medium",
-      "reviewNote": "温柔、迷路、二次元与死神设定带来低能量高治愈的候选位置。"
+      "reviewNote": "温柔悠哉与死神设定支持低能量高治愈定位；条目同时明确喜欢大量游戏和动画，因此提高游戏与持续投入权重。"
     },
     {
       "id": "mit3uri",
@@ -268,11 +268,11 @@
       "generation": 25,
       "bilibiliUid": "2030198123",
       "archetype": "咖啡与事故并存的研究员",
-      "style": { "energy": 4, "warmth": 4, "chaos": 4, "structure": 3, "intimacy": 4, "roleplay": 4, "focus": 3, "novelty": 4 },
-      "content": { "music": 2, "gaming": 2, "chat": 5, "variety": 4, "knowledge": 3 },
+      "style": { "energy": 4, "warmth": 4, "chaos": 4, "structure": 3, "intimacy": 4, "roleplay": 4, "focus": 4, "novelty": 4 },
+      "content": { "music": 4, "gaming": 4, "chat": 5, "variety": 4, "knowledge": 4 },
       "evidence": ["official_announcement", "community_wiki", "recent_bilibili_clips"],
       "confidence": "high",
-      "reviewNote": "研究所实习生与事故型反差带来高聊天、整活和新鲜感。"
+      "reviewNote": "条目明确记录唱歌、丰富的游戏喜好与较具体的咖啡知识；在事故型聊天与整活之外，提高音乐、游戏、专注和主题分享权重。"
     },
     {
       "id": "liko",
