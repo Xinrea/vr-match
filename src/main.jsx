@@ -96,7 +96,7 @@ function App() {
         {displayedMatches.map((match, matchIndex) => {
           const { member, reasons, score } = match;
           const displayedReasons = reasons.length ? reasons : ["你们在整体观看氛围上有不少相近之处"];
-          return <article className={`result-card${member.id === "zhouyi" ? " ad-result" : ""}`} key={member.id}>
+          return <article className={`result-card${member.id === "zhouyi" ? " featured-result" : ""}`} key={member.id}>
             <div className="result-card-title"><span>{`MATCH 0${matchIndex + 1}`}</span><span>{score} SIGNAL</span></div>
             <div className="result-member">
               <MemberMark member={member} />
