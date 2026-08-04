@@ -15,7 +15,16 @@ const members = activeRosterData.members.map((rosterMember) => {
   const profile = memberProfileById.get(rosterMember.id);
   return profile ? { ...profile, ...rosterMember } : null;
 }).filter(Boolean);
-const RADAR_DIMENSIONS = [["energy", "能量"], ["warmth", "温度"], ["chaos", "节目"], ["structure", "结构"], ["intimacy", "互动"], ["roleplay", "设定"], ["focus", "专注"], ["novelty", "探索"]];
+const RADAR_DIMENSIONS = [
+  ["energy", "能量", "安静、低刺激 → 热闹、高刺激"],
+  ["warmth", "温度", "冷感、克制 → 温柔、治愈"],
+  ["chaos", "节目", "稳定、沉着 → 梗密度高、意外感强"],
+  ["structure", "结构", "随性、自由聊天 → 主题明确、目标清晰"],
+  ["intimacy", "互动", "舞台式欣赏 → 强陪伴、朋友感互动"],
+  ["roleplay", "设定", "日常真实感 → 角色与世界观沉浸感"],
+  ["focus", "专注", "内容多样、频繁切换 → 长时间深入一个主题"],
+  ["novelty", "探索", "熟悉的舒适区 → 新游戏、新企划与新话题"],
+];
 const withBaseUrl = (path) => /^(?:[a-z]+:)?\/\//i.test(path) || path.startsWith("data:")
   ? path
   : `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
@@ -28,6 +37,7 @@ function MemberMark({ member, mini = false }) {
 }
 
 function RadarChart({ profile, member, chartId }) {
+  const [hoveredDimension, setHoveredDimension] = useState(null);
   const pointAt = (index, value, radius = 118) => {
     const angle = -Math.PI / 2 + index * (Math.PI * 2 / RADAR_DIMENSIONS.length);
     const distance = radius * value / 5;
@@ -37,14 +47,45 @@ function RadarChart({ profile, member, chartId }) {
   const overlap = RADAR_DIMENSIONS.map(([key, label]) => ({ label, difference: Math.abs(profile.styles[key] - member.style[key]) })).sort((a, b) => a.difference - b.difference).slice(0, 3).map(({ label }) => label).join("、");
   return <section className="radar-section" aria-labelledby={chartId}>
     <div className="radar-heading"><h3 id={chartId}>偏好重叠图</h3><p>外缘越近，偏好越强</p></div>
-    <svg className="radar-chart" viewBox="0 0 360 360" role="img" aria-label={`你的观看偏好与${member.name}的风格维度雷达图对比`}>
-      <title>你的偏好与{member.name}的风格维度对比</title>
-      {[1, 2, 3, 4, 5].map((level) => <polygon key={level} className="radar-grid" points={polygon(Object.fromEntries(RADAR_DIMENSIONS.map(([key]) => [key, level])))} />)}
-      {RADAR_DIMENSIONS.map(([, label], index) => { const [x, y] = pointAt(index, 5); const [labelX, labelY] = pointAt(index, 5, 148); return <g key={label}><line className="radar-axis" x1="180" y1="180" x2={x} y2={y} /><text className="radar-label" x={labelX} y={labelY} textAnchor={labelX < 155 ? "end" : labelX > 205 ? "start" : "middle"} dominantBaseline="middle">{label}</text></g>; })}
-      <polygon className="radar-member" points={polygon(member.style)} /><polygon className="radar-user" points={polygon(profile.styles)} />
-      {RADAR_DIMENSIONS.map(([key], index) => { const [x, y] = pointAt(index, member.style[key]); return <circle key={`member-${key}`} className="radar-member-point" cx={x} cy={y} r="3.5" />; })}
-      {RADAR_DIMENSIONS.map(([key], index) => { const [x, y] = pointAt(index, profile.styles[key]); return <circle key={`user-${key}`} className="radar-user-point" cx={x} cy={y} r="3.5" />; })}
-    </svg>
+    <div className="radar-chart-wrap">
+      <svg className="radar-chart" viewBox="0 0 360 360" role="img" aria-label={`你的观看偏好与${member.name}的风格维度雷达图对比`}>
+        <title>你的偏好与{member.name}的风格维度对比</title>
+        {[1, 2, 3, 4, 5].map((level) => <polygon key={level} className="radar-grid" points={polygon(Object.fromEntries(RADAR_DIMENSIONS.map(([key]) => [key, level])))} />)}
+        {RADAR_DIMENSIONS.map(([key, label, description], index) => {
+          const [x, y] = pointAt(index, 5);
+          const [labelX, labelY] = pointAt(index, 5, 148);
+          return <g
+            key={key}
+            className="radar-dimension"
+            tabIndex="0"
+            role="button"
+            aria-label={`${label}维度：${description}`}
+            onMouseEnter={() => setHoveredDimension({ label, description })}
+            onMouseLeave={() => setHoveredDimension(null)}
+            onFocus={() => setHoveredDimension({ label, description })}
+            onBlur={() => setHoveredDimension(null)}
+            onClick={() => setHoveredDimension({ label, description })}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setHoveredDimension({ label, description });
+              }
+            }}
+          >
+            <title>{label}：{description}</title>
+            <line className="radar-axis" x1="180" y1="180" x2={x} y2={y} />
+            <circle className="radar-label-hitbox" cx={labelX} cy={labelY} r="22" />
+            <text className="radar-label" x={labelX} y={labelY} textAnchor={labelX < 155 ? "end" : labelX > 205 ? "start" : "middle"} dominantBaseline="middle">{label}</text>
+          </g>;
+        })}
+        <polygon className="radar-member" points={polygon(member.style)} /><polygon className="radar-user" points={polygon(profile.styles)} />
+        {RADAR_DIMENSIONS.map(([key], index) => { const [x, y] = pointAt(index, member.style[key]); return <circle key={`member-${key}`} className="radar-member-point" cx={x} cy={y} r="3.5" />; })}
+        {RADAR_DIMENSIONS.map(([key], index) => { const [x, y] = pointAt(index, profile.styles[key]); return <circle key={`user-${key}`} className="radar-user-point" cx={x} cy={y} r="3.5" />; })}
+      </svg>
+      <div className={`radar-dimension-tip${hoveredDimension ? " visible" : ""}`} aria-live="polite">
+        {hoveredDimension && <><strong>{hoveredDimension.label}</strong><span>{hoveredDimension.description}</span></>}
+      </div>
+    </div>
     <div className="radar-legend"><span><i className="legend-dot user" />你的偏好</span><span><i className="legend-dot member" />{member.name}</span></div>
     <p className="overlap-note">重合最明显：<strong>{overlap}</strong></p>
   </section>;
